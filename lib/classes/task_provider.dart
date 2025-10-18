@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_us
 
+import 'dart:math';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -211,6 +213,95 @@ class TaskProvider extends ChangeNotifier {
     return TimeOfDay(hour: dt.hour, minute: dt.minute);
   }
 
+  List specificMessage() {
+    final now = DateTime.now();
+    final day = now.weekday;
+    final random = Random();
+    // For friday evening
+    if (day == 5) {
+      List<List> messages = [
+        [
+          "It's the weekend !!!!🥳🥳🥳",
+          "Rest and reflect on your week boss 🫡🫡",
+        ],
+        [
+          "It's the weekend !!!!🥳🥳🥳",
+          "Rest and reflect on your week boss 🫡🫡",
+        ],
+      ];
+      return messages[random.nextInt(messages.length)];
+    }
+    //For Saturday evening
+    else if (day == 6) {
+      List<List<String>> messages = [
+        [
+          "$userName, you earned the rest ohh",
+          "Come on, let's start creating momentum for the week ahead",
+        ],
+        [
+          "Hope you enjoyed today boss",
+          "You don't really need to plan today, just breathe and reflect",
+        ],
+        [
+          "Good evening Boss 🫡🫡🫡",
+          "Hope you rested well, tomorrow is another day",
+        ],
+        [
+          "It's mid weekend, hope you rested well",
+          "Monday is around the corner, let's reflect and celebrate small wins",
+        ],
+        [
+          "Hey $userName tonight is your quiet victory",
+          "Reflect, rest and realign your energy",
+        ],
+      ];
+      return [];
+    }
+    //For Sunday evening
+    else if (day == 7) {
+      List<List<String>> messages = [
+        [
+          "The weekend is over 🥲😞"
+              "Come on $userName, let's plan your Monday and own the week.",
+        ],
+        [
+          "Just like that it's almost Monday😞😞",
+          "Take a few minutes to plan your Monday",
+        ],
+        [
+          "Hey $userInputName ready for Monday??",
+          "Monday  is tomorrow, let's plan to enter it well prepared",
+        ],
+        [
+          "Hope you enjoyed your weekend $userName??",
+          "Let's set the tone for the week, take a few mins to plan for Monday",
+        ],
+        [
+          "Knock Knock !!!, it's Monday",
+          "Let's make a quick plan for tomorrow $userName",
+        ],
+      ];
+      return messages[random.nextInt(messages.length)];
+    }
+    //For Monday evening
+    else if (day == 1) {
+      List<String> messages = [];
+    }
+    //For Tuesday evening
+    else if (day == 2) {
+      List<String> messages = [];
+    }
+    //For Wednesday evening
+    else if (day == 3) {
+      List<String> messages = [];
+    }
+    //For Thursday evening
+    else if (day == 4) {
+      List<String> messages = [];
+    }
+    return [];
+  }
+
   //Notification Function for the exact scheduled time
   Future<void> scheduleNotification(TaskClass task, DateTime taskTime) async {
     final now = DateTime.now();
@@ -218,8 +309,8 @@ class TaskProvider extends ChangeNotifier {
       content: NotificationContent(
         id: now.millisecondsSinceEpoch.remainder(100000),
         channelKey: "task_channel",
-        title: "It's time to ${task.taskName}",
-        body: "Let's get to work ${userName}",
+        title: specificMessage()[0],
+        body: specificMessage()[1],
       ),
       actionButtons: [
         NotificationActionButton(
@@ -234,9 +325,9 @@ class TaskProvider extends ChangeNotifier {
         ),
       ],
       schedule: NotificationCalendar(
-        year: now.year,
-        month: now.month,
-        day: now.day,
+        year: taskTime.year,
+        month: taskTime.month,
+        day: taskTime.day,
         hour: taskTime.hour,
         minute: taskTime.minute,
         second: 0,
@@ -247,7 +338,33 @@ class TaskProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  
+  Future<void> scheduleConstantNotification(
+    TaskClass task,
+    DateTime taskTime,
+  ) async {
+    final now = DateTime.now();
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: now.millisecondsSinceEpoch.remainder(100000),
+        channelKey: "task_channel",
+        title: "It's time to ${task.taskName}",
+        body: "Let's get to work ${userName} 🫡🫡🫡",
+      ),
+
+      // schedule: NotificationCalendar(
+      //   year: now.year,
+      //   month: now.month,
+      //   day: now.day,
+      //   hour: taskTime.hour,
+      //   minute: taskTime.minute,
+      //   second: 0,
+      //   millisecond: 0,
+      //   repeats: false,
+      // ),
+    );
+    notifyListeners();
+  }
+
   //Icon for the theme indicator
   Icon themeIcon = Icon(Icons.dark_mode, size: 16);
   //Current theme

@@ -277,7 +277,7 @@ class _HomeState extends State<Home> {
           title: Row(
             children: [
               Text(
-                "Welcome ${providerModel.userName}",
+                "Welcome ${providerModel.userName} 🤗😃🫡",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: providerModel.appColor,
