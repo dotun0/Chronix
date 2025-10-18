@@ -9,6 +9,7 @@ import 'package:taskmate/classes/task_provider.dart';
 import 'package:taskmate/classes/theme_class.dart';
 import 'package:taskmate/pages/history_page.dart';
 import 'package:taskmate/pages/task_input.dart';
+import 'package:taskmate/utilities/alert_dialog.dart';
 import 'package:taskmate/utilities/button.dart';
 import 'package:taskmate/utilities/task_tile.dart';
 
@@ -27,28 +28,7 @@ class _HomeState extends State<Home> {
       showAdaptiveDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            content: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              controller: context.read<TaskProvider>().userInputName,
-            ),
-            actions: [
-              Button(
-                colors: context.read<TaskProvider>().appColor,
-                onPressed: () => context.read<TaskProvider>().updateName(
-                  context.read<TaskProvider>().userInputName,
-                  context,
-                ),
-                text: "Submit",
-                borderColor: Theme.of(context).textTheme.bodyLarge!.color!,
-                textColor: Theme.of(context).textTheme.bodyLarge!.color!,
-              ),
-            ],
-          );
+          return CustomAlertDialog();
         },
       );
     }
@@ -204,7 +184,39 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                Divider(),
+                GestureDetector(
+                  onTap: () {
+                    showAdaptiveDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomAlertDialog();
+                      },
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      height: 40,
+                      width: 250,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.history, size: 16),
+                            SizedBox(width: 8),
+                            Text("Edit Name"),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -265,7 +277,7 @@ class _HomeState extends State<Home> {
           title: Row(
             children: [
               Text(
-                "Chronix",
+                "Welcome ${providerModel.userName}",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: providerModel.appColor,

@@ -219,7 +219,7 @@ class TaskProvider extends ChangeNotifier {
         id: now.millisecondsSinceEpoch.remainder(100000),
         channelKey: "task_channel",
         title: "It's time to ${task.taskName}",
-        body: "Let's get to work",
+        body: "Let's get to work ${userName}",
       ),
       actionButtons: [
         NotificationActionButton(
