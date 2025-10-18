@@ -23,6 +23,36 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    void showDialog() {
+      showAdaptiveDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              controller: context.read<TaskProvider>().userInputName,
+            ),
+            actions: [
+              Button(
+                colors: context.read<TaskProvider>().appColor,
+                onPressed: () => context.read<TaskProvider>().updateName(
+                  context.read<TaskProvider>().userInputName,
+                  context,
+                ),
+                text: "Submit",
+                borderColor: Theme.of(context).textTheme.bodyLarge!.color!,
+                textColor: Theme.of(context).textTheme.bodyLarge!.color!,
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     // Displaying the Notification permission
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
@@ -249,14 +279,19 @@ class _HomeState extends State<Home> {
                 width: 22,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.7),
+                  color: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge!.color!.withOpacity(0.7),
                 ),
                 child: Center(
                   child: Text(
                     filtered.length.toString(),
-                    style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold
+                    style: TextStyle(
+                      color: Theme.of(
+                        context,
+                      ).scaffoldBackgroundColor.withOpacity(0.9),
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

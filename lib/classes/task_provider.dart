@@ -5,11 +5,36 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:taskmate/classes/task_class.dart';
 import 'package:taskmate/classes/theme_class.dart';
+import 'package:taskmate/pages/home.dart';
 import 'package:taskmate/pages/task_input.dart';
 import 'package:uuid/uuid.dart';
 
 class TaskProvider extends ChangeNotifier {
-  final String news = "Star";
+  TextEditingController userInputName = TextEditingController();
+  String userName = "";
+  void updateName(TextEditingController name, BuildContext context) {
+    if (name.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: appColor,
+
+          behavior: SnackBarBehavior.fixed,
+          content: Text(
+            "Please input your name, it's for personalization purpose",
+            style: TextStyle(
+              fontSize: 16,
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+          ),
+        ),
+      );
+    } else {
+      userName = userInputName.text;
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    }
+  }
+
+  //Color of the app color
   Color appColor = const Color(0xFF2048ff);
   //TextEditingController for the task text inputted in the input page
   TextEditingController inputTask = TextEditingController();
@@ -32,10 +57,9 @@ class TaskProvider extends ChangeNotifier {
       debugPrint("Error checking your task, close the app and try again");
     }
   }
+
   void onHistoryCheckFunction(String id, TaskClass? updatedTask) {
     try {
-      
-
       final newHistoryBox = historyBox.get(id);
       newHistoryBox!.taskState = true;
       historyBox.put(id, updatedTask!);
@@ -44,6 +68,7 @@ class TaskProvider extends ChangeNotifier {
       debugPrint("Error checking your task, close the app and try again");
     }
   }
+
   //Function to delete a task from the box
   void onDelete(String id) async {
     try {
@@ -188,42 +213,41 @@ class TaskProvider extends ChangeNotifier {
 
   //Notification Function for the exact scheduled time
   Future<void> scheduleNotification(TaskClass task, DateTime taskTime) async {
-   
-      final now = DateTime.now();
-      await AwesomeNotifications().createNotification(
-        content: NotificationContent(
-          id: now.millisecondsSinceEpoch.remainder(100000),
-          channelKey: "task_channel",
-          title: "It's time to ${task.taskName}",
-          body: "Let's get to work",
+    final now = DateTime.now();
+    await AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: now.millisecondsSinceEpoch.remainder(100000),
+        channelKey: "task_channel",
+        title: "It's time to ${task.taskName}",
+        body: "Let's get to work",
+      ),
+      actionButtons: [
+        NotificationActionButton(
+          key: "DONE",
+          label: "Done",
+          actionType: ActionType.Default,
         ),
-        actionButtons: [
-          NotificationActionButton(
-            key: "DONE",
-            label: "Done",
-            actionType: ActionType.Default,
-          ),
-          NotificationActionButton(
-            key: "CANCEL",
-            label: "Cancel",
-            actionType: ActionType.DisabledAction,
-          ),
-        ],
-        schedule: NotificationCalendar(
-          year: now.year,
-          month: now.month,
-          day: now.day,
-          hour: taskTime.hour,
-          minute: taskTime.minute,
-          second: 0,
-          millisecond: 0,
-          repeats: false,
+        NotificationActionButton(
+          key: "CANCEL",
+          label: "Cancel",
+          actionType: ActionType.DisabledAction,
         ),
-      );
-      notifyListeners();
-    
+      ],
+      schedule: NotificationCalendar(
+        year: now.year,
+        month: now.month,
+        day: now.day,
+        hour: taskTime.hour,
+        minute: taskTime.minute,
+        second: 0,
+        millisecond: 0,
+        repeats: false,
+      ),
+    );
+    notifyListeners();
   }
 
+  
   //Icon for the theme indicator
   Icon themeIcon = Icon(Icons.dark_mode, size: 16);
   //Current theme
