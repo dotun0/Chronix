@@ -5,7 +5,6 @@ import 'package:taskmate/classes/task_provider.dart';
 import 'package:taskmate/classes/theme_class.dart';
 import 'package:taskmate/pages/home.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 

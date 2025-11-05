@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:taskmate/classes/task_class.dart';
 import 'package:taskmate/classes/task_provider.dart';
+import 'package:taskmate/pages/home.dart';
 import 'package:taskmate/pages/task_input.dart';
 import 'package:taskmate/utilities/button.dart';
 import 'package:taskmate/utilities/history_task_tile.dart';
@@ -76,24 +77,28 @@ class _HistoryPageState extends State<HistoryPage> {
                   ).scaffoldBackgroundColor.withOpacity(0.5),
                   child: Text("Clear History"),
                 ),
-                // GestureDetector(
 
-                //   child: Padding(
-                //     padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                //     child: Container(
-                //       decoration: BoxDecoration(
-                //         color:
-                //         borderRadius: BorderRadius.circular(12),
-                //       ),
-                //       height: 40,
-                //       width: 250,
-                //       child: Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: Text("Clear History"),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Divider(),
+                MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
+                    });
+                    Navigator.pop(context);
+                  },
+                  minWidth: 180,
+                  shape: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  color: Theme.of(
+                    context,
+                  ).scaffoldBackgroundColor.withOpacity(0.5),
+                  child: Text("Home Page"),
+                ),
                 Divider(),
                 Container(
                   height: 50,
@@ -142,12 +147,11 @@ class _HistoryPageState extends State<HistoryPage> {
                     ],
                   ),
                 ),
-                Tab(child: Row(
+                Tab(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Done", style: TextStyle(
-                        fontSize: 17
-                      ),),
+                      Text("Done", style: TextStyle(fontSize: 17)),
                       SizedBox(width: 8),
                       Container(
                         height: 21,
@@ -171,7 +175,8 @@ class _HistoryPageState extends State<HistoryPage> {
                         ),
                       ),
                     ],
-                  ),),
+                  ),
+                ),
               ],
             ),
           ),
@@ -217,7 +222,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       time: tasks.taskTime,
                                       category: tasks.taskCategory,
                                       catColor: tasks.catColor,
-                                      date: "Scheduled on ${formattedDate}",
+                                      date: "Scheduled on $formattedDate",
                                       tileColor: Theme.of(
                                         context,
                                       ).colorScheme.primary,
@@ -273,7 +278,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                       time: tasks.taskTime,
                                       category: tasks.taskCategory,
                                       catColor: tasks.catColor,
-                                      date: "Scheduled on ${formattedDate}",
+                                      date: "Scheduled on $formattedDate",
                                       tileColor: Theme.of(
                                         context,
                                       ).colorScheme.primary.withOpacity(0.3),

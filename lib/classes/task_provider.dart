@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_us
+// ignore_for_file: deprecated_member_us, use_build_context_synchronously
 
 import 'dart:math';
 
@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 
 class TaskProvider extends ChangeNotifier {
   TextEditingController userInputName = TextEditingController();
-  String userName = "";
+  String userName = "Dotun";
   void updateName(TextEditingController name, BuildContext context) {
     if (name.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -122,7 +122,7 @@ class TaskProvider extends ChangeNotifier {
             // margin: EdgeInsets.all(20),
             behavior: SnackBarBehavior.fixed,
             content: Text(
-              "${inputTask.text} was ${message} for ${newTime.format(context)}",
+              "${inputTask.text} was $message for ${newTime.format(context)}",
               style: TextStyle(
                 fontSize: 16,
                 color: Theme.of(context).colorScheme.tertiary,
@@ -348,7 +348,7 @@ class TaskProvider extends ChangeNotifier {
         id: now.millisecondsSinceEpoch.remainder(100000),
         channelKey: "task_channel",
         title: "It's time to ${task.taskName}",
-        body: "Let's get to work ${userName} 🫡🫡🫡",
+        body: "Let's get to work $userName 🫡🫡🫡",
       ),
 
       // schedule: NotificationCalendar(

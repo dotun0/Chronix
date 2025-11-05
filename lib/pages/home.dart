@@ -6,7 +6,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:taskmate/classes/task_class.dart';
 import 'package:taskmate/classes/task_provider.dart';
-import 'package:taskmate/classes/theme_class.dart';
 import 'package:taskmate/pages/history_page.dart';
 import 'package:taskmate/pages/task_input.dart';
 import 'package:taskmate/utilities/alert_dialog.dart';
@@ -277,12 +276,12 @@ class _HomeState extends State<Home> {
           title: Row(
             children: [
               Text(
-                "Welcome ${providerModel.userName} 🤗😃🫡",
+                "Welcome ${providerModel.userName} ",
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.normal,
                   color: providerModel.appColor,
                   fontFamily: 'Inter',
-                  fontSize: 27,
+                  fontSize: 18,
                 ),
               ),
               Spacer(),
