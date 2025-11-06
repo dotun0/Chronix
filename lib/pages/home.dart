@@ -23,14 +23,54 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    void showDialog() {
-      showAdaptiveDialog(
-        context: context,
-        builder: (context) {
-          return CustomAlertDialog();
-        },
-      );
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final provider = context.read<TaskProvider>();
+      if (provider.userName.isEmpty) {
+        showAdaptiveDialog(
+          context: context,
+          builder: (context) {
+            return CustomAlertDialog();
+          },
+        );
+      } else {
+        return;
+      }
+
+      Future<void> scheduleConstantNotification(
+        TaskClass task,
+        DateTime taskTime,
+      ) async {
+        print("Started");
+        final now = DateTime.now();
+        await AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: now.millisecondsSinceEpoch.remainder(100000),
+            channelKey: "task_channel",
+
+            title: context.watch<TaskProvider>().specificMessage()[0],
+            body: context.watch<TaskProvider>().specificMessage()[1],
+          ),
+
+          schedule: NotificationCalendar(
+            hour: 20,
+            minute: 0,
+            second: 0,
+            millisecond: 0,
+            repeats: true,
+          ),
+        );
+        print("Stopped");
+      }
+    });
+    // The dialog to get the user's name
+    // showAdaptiveDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return CustomAlertDialog();
+    //   },
+    // );
+
+    //The trigger for the constant night reminder notification
 
     // Displaying the Notification permission
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
@@ -279,7 +319,7 @@ class _HomeState extends State<Home> {
                 "Welcome ${providerModel.userName} ",
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
-                  color: providerModel.appColor,
+                  color: Theme.of(context).textTheme.bodyLarge!.color!,
                   fontFamily: 'Inter',
                   fontSize: 18,
                 ),
