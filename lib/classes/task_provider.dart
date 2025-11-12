@@ -12,8 +12,11 @@ import 'package:taskmate/pages/task_input.dart';
 import 'package:uuid/uuid.dart';
 
 class TaskProvider extends ChangeNotifier {
+  //User Information Box
+  final userInfo = Hive.box("userInfo");
+  //Box get userinfo => userInfo;
   TextEditingController userInputName = TextEditingController();
-  String userName = "Dotun";
+  String get userName => userInfo.get("userName");
   void updateName(TextEditingController name, BuildContext context) {
     if (name.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -31,13 +34,17 @@ class TaskProvider extends ChangeNotifier {
         ),
       );
     } else {
-      userName = userInputName.text;
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      userInfo.put("userName", userInputName.text);
+      //userName is read from the Hive box via the getter
+      Navigator.pop(context);
+      //Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
     }
   }
 
+
   //Color of the app color
   Color appColor = const Color(0xFF2048ff);
+
   //TextEditingController for the task text inputted in the input page
   TextEditingController inputTask = TextEditingController();
   // The boss Hive box to save the tasks to device
@@ -460,16 +467,21 @@ class TaskProvider extends ChangeNotifier {
   }
 
   //Function to change theme
-  void changeTheme() {
-    if (themeData == lightMode) {
+
+  ThemeMode get themeMode =>
+      userInfo.get("appTheme") == "Dark" ? ThemeMode.dark : ThemeMode.light;
+    String get appTheme => userInfo.get("appTheme");
+  void themeOnpressed(String theme, BuildContext context) {
+    userInfo.put("appTheme", theme);
+    if (theme == "Dark") {
       themeData = darkMode;
-      themeIcon = Icon(Icons.light_mode, size: 16);
-    } else {
-      themeData = lightMode;
       themeIcon = Icon(Icons.dark_mode, size: 16);
+    } else if (theme == "Light") {
+      themeData = lightMode;
+      themeIcon = Icon(Icons.light_mode, size: 16);
     }
-    notifyListeners();
   }
+
 
   //Function to edit task
   void edit(String id, TaskClass inputNewTask, BuildContext context) {

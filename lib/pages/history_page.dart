@@ -50,37 +50,19 @@ class _HistoryPageState extends State<HistoryPage> {
         length: 2,
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          endDrawer: Container(
+          endDrawer: SafeArea(
+          child: Container(
             decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(12),
-              color: const Color.fromRGBO(33, 150, 243, 1).withOpacity(0.7),
             ),
 
-            height: 300,
-            width: 200,
+            height: 500,
+            width: 250,
             child: Column(
               children: [
-                MaterialButton(
-                  onPressed: () {
-                    setState(() {
-                      providerModel.historyBox.clear();
-                    });
-                    Navigator.pop(context);
-                  },
-                  minWidth: 180,
-                  shape: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  color: Theme.of(
-                    context,
-                  ).scaffoldBackgroundColor.withOpacity(0.5),
-                  child: Text("Clear History"),
-                ),
-
-                Divider(),
-                MaterialButton(
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     setState(() {
                       Navigator.push(
                         context,
@@ -89,28 +71,130 @@ class _HistoryPageState extends State<HistoryPage> {
                     });
                     Navigator.pop(context);
                   },
-                  minWidth: 180,
-                  shape: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(12),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      height: 40,
+                      width: 250,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.home, size: 16),
+                            SizedBox(width: 8),
+                            Text("Home Page"),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  color: Theme.of(
-                    context,
-                  ).scaffoldBackgroundColor.withOpacity(0.5),
-                  child: Text("Home Page"),
                 ),
-                Divider(),
-                Container(
-                  height: 50,
-                  width: 250,
-                  child: Row(
-                    children: [Icon(Icons.history), Text("Task History")],
+
+
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      providerModel.historyBox.clear();
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      height: 40,
+                      width: 250,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.delete_forever, size: 16),
+                            SizedBox(width: 8),
+                            Text("Clear History"),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-                Divider(),
-              ],
+
+                ],
             ),
           ),
+        ),
+        
+          // endDrawer: Container(
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(12),
+          //     color: const Color.fromRGBO(33, 150, 243, 1).withOpacity(0.7),
+          //   ),
+
+          //   height: 300,
+          //   width: 200,
+          //   child: Column(
+          //     children: [
+          //       MaterialButton(
+          //         onPressed: () {
+          //           setState(() {
+          //             providerModel.historyBox.clear();
+          //           });
+          //           Navigator.pop(context);
+          //         },
+          //         minWidth: 180,
+          //         shape: OutlineInputBorder(
+          //           borderSide: BorderSide.none,
+          //           borderRadius: BorderRadius.circular(12),
+          //         ),
+          //         color: Theme.of(
+          //           context,
+          //         ).scaffoldBackgroundColor.withOpacity(0.5),
+          //         child: Text("Clear History"),
+          //       ),
+
+          //       Divider(),
+          //       MaterialButton(
+          //         onPressed: () {
+          //           setState(() {
+          //             Navigator.push(
+          //               context,
+          //               MaterialPageRoute(builder: (context) => Home()),
+          //             );
+          //           });
+          //           Navigator.pop(context);
+          //         },
+          //         minWidth: 180,
+          //         shape: OutlineInputBorder(
+          //           borderSide: BorderSide.none,
+          //           borderRadius: BorderRadius.circular(12),
+          //         ),
+          //         color: Theme.of(
+          //           context,
+          //         ).scaffoldBackgroundColor.withOpacity(0.5),
+          //         child: Text("Home Page"),
+          //       ),
+          //       Divider(),
+          //       Container(
+          //         height: 50,
+          //         width: 250,
+          //         child: Row(
+          //           children: [Icon(Icons.history), Text("Task History")],
+          //         ),
+          //       ),
+          //       Divider(),
+          //     ],
+          //   ),
+          // ),
 
           appBar: AppBar(
             title: Row(children: [Text("Task History")]),

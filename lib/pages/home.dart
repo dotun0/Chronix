@@ -11,6 +11,7 @@ import 'package:taskmate/pages/task_input.dart';
 import 'package:taskmate/utilities/alert_dialog.dart';
 import 'package:taskmate/utilities/button.dart';
 import 'package:taskmate/utilities/task_tile.dart';
+import 'package:taskmate/utilities/theme_dialog.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -128,7 +129,7 @@ class _HomeState extends State<Home> {
         endDrawer: SafeArea(
           child: Container(
             decoration: BoxDecoration(
-              color: providerModel.appColor.withOpacity(.5),
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(12),
             ),
 
@@ -195,9 +196,12 @@ class _HomeState extends State<Home> {
 
                 GestureDetector(
                   onTap: () {
-                    setState(() {
-                      providerModel.changeTheme();
-                    });
+                    showAdaptiveDialog(
+                      context: context,
+                      builder: (context) {
+                        return ThemeDialog();
+                      },
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
@@ -250,6 +254,39 @@ class _HomeState extends State<Home> {
                             Icon(Icons.history, size: 16),
                             SizedBox(width: 8),
                             Text("Edit Name"),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    showAdaptiveDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomAlertDialog();
+                      },
+                    );
+                  }, 
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(
+                          context,
+                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      height: 40,
+                      width: 250,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.notifications, size: 16),
+                            SizedBox(width: 8),
+                            Text("Notification"),
                           ],
                         ),
                       ),
@@ -316,7 +353,7 @@ class _HomeState extends State<Home> {
           title: Row(
             children: [
               Text(
-                "Welcome ${providerModel.userName} ",
+                "Welcome ${providerModel.userInfo.get("userName").toString()} ",
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: Theme.of(context).textTheme.bodyLarge!.color!,
@@ -330,9 +367,7 @@ class _HomeState extends State<Home> {
                 width: 22,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge!.color!.withOpacity(0.7),
+                  color: providerModel.appColor,
                 ),
                 child: Center(
                   child: Text(

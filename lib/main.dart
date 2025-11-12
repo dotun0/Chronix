@@ -14,21 +14,23 @@ void main() async {
   // ignore: unused_local_variable
   final String localTimeZone = await AwesomeNotifications()
       .getLocalTimeZoneIdentifier();
-  await AwesomeNotifications().initialize("resource://drawable/notification_icon", [
-    NotificationChannel(
-      channelKey: "task_channel",
-      channelName: "Task Reminder",
-      channelDescription: "Do your task",
-      defaultColor: Colors.blue,
-      importance: NotificationImportance.High,
-      channelShowBadge: true,
-    ),
-  ]);
+  await AwesomeNotifications()
+      .initialize("resource://drawable/notification_icon", [
+        NotificationChannel(
+          channelKey: "task_channel",
+          channelName: "Task Reminder",
+          channelDescription: "Do your task",
+          defaultColor: Colors.blue,
+          importance: NotificationImportance.High,
+          channelShowBadge: true,
+        ),
+      ]);
 
   await Hive.initFlutter();
   Hive.registerAdapter(TaskClassAdapter());
 
   await Hive.openBox<TaskClass>("box");
+  await Hive.openBox("userInfo");
   await Hive.openBox<TaskClass>("historyTaskBox");
   // await SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitDown,
@@ -46,6 +48,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      themeMode: Provider.of<TaskProvider>(context).themeMode,
       theme: lightMode,
       darkTheme: darkMode,
 
