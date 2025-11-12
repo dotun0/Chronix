@@ -32,7 +32,6 @@ class _TaskInputState extends State<TaskInput> {
   Widget build(BuildContext context) {
     Color appColor = const Color(0xFF2048ff);
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,

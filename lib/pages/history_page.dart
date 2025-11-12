@@ -1,17 +1,12 @@
-// ignore_for_file: sized_box_for_whitespace
+// ignore_for_file: sized_box_for_whitespace, unused_local_variable
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:taskmate/classes/task_class.dart';
 import 'package:taskmate/classes/task_provider.dart';
 import 'package:taskmate/pages/home.dart';
-import 'package:taskmate/pages/task_input.dart';
-import 'package:taskmate/utilities/button.dart';
 import 'package:taskmate/utilities/history_task_tile.dart';
-import 'package:taskmate/utilities/task_tile.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});

@@ -37,6 +37,7 @@ class _HomeState extends State<Home> {
         return;
       }
 
+      // ignore: unused_element
       Future<void> scheduleConstantNotification(
         TaskClass task,
         DateTime taskTime,
@@ -251,7 +252,7 @@ class _HomeState extends State<Home> {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Icon(Icons.history, size: 16),
+                            Icon(Icons.person, size: 16),
                             SizedBox(width: 8),
                             Text("Edit Name"),
                           ],
@@ -262,13 +263,11 @@ class _HomeState extends State<Home> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    showAdaptiveDialog(
-                      context: context,
-                      builder: (context) {
-                        return CustomAlertDialog();
-                      },
-                    );
-                  }, 
+                    setState(() {
+                      providerModel.scheduleConstantNotification();
+                      print("Done");
+                    });
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
                     child: Container(

@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_us, use_build_context_synchronously
+// ignore_for_file: deprecated_member_us, use_build_context_synchronously, unused_local_variable
 
 import 'dart:math';
 
@@ -252,6 +252,7 @@ class TaskProvider extends ChangeNotifier {
     }
     //For Saturday evening
     else if (day == 6) {
+      // ignore: unused_local_vari.able
       List<List<String>> messages = [
         [
           "$userName, you earned the rest ohh",
@@ -432,25 +433,24 @@ class TaskProvider extends ChangeNotifier {
   }
 
   Future<void> scheduleConstantNotification(
-    TaskClass task,
-    DateTime taskTime,
+   
   ) async {
     final now = DateTime.now();
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: now.millisecondsSinceEpoch.remainder(100000),
         channelKey: "task_channel",
-        title: specificMessage()[0],
-        body: specificMessage()[1],
+        title: "specificMessage()[0]",
+        body: "specificMessage()[1]",
       ),
 
-      schedule: NotificationCalendar(
-        hour: 20,
-        minute: 0,
-        second: 0,
-        millisecond: 0,
-        repeats: true,
-      ),
+      // schedule: NotificationCalendar(
+      //   hour: 20,
+      //   minute: 0,
+      //   second: 0,
+      //   millisecond: 0,
+      //   repeats: true,
+      // ),
     );
     notifyListeners();
   }
