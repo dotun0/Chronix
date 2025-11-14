@@ -36,33 +36,32 @@ class _HomeState extends State<Home> {
       } else {
         return;
       }
-
+      context.read<TaskProvider>().scheduleConstantNotification();
       // ignore: unused_element
-      Future<void> scheduleConstantNotification(
-        TaskClass task,
-        DateTime taskTime,
-      ) async {
-        print("Started");
-        final now = DateTime.now();
-        await AwesomeNotifications().createNotification(
-          content: NotificationContent(
-            id: now.millisecondsSinceEpoch.remainder(100000),
-            channelKey: "task_channel",
+      // Future<void> scheduleConstantNotification(
 
-            title: context.watch<TaskProvider>().specificMessage()[0],
-            body: context.watch<TaskProvider>().specificMessage()[1],
-          ),
+      // ) async {
+      //   print("Started");
+      //   final now = DateTime.now();
+      //   await AwesomeNotifications().createNotification(
+      //     content: NotificationContent(
+      //       id: now.millisecondsSinceEpoch.remainder(100000),
+      //       channelKey: "task_channel",
 
-          schedule: NotificationCalendar(
-            hour: 20,
-            minute: 0,
-            second: 0,
-            millisecond: 0,
-            repeats: true,
-          ),
-        );
-        print("Stopped");
-      }
+      //       title: context.watch<TaskProvider>().specificMessage()[0],
+      //       body: context.watch<TaskProvider>().specificMessage()[1],
+      //     ),
+
+      //     schedule: NotificationCalendar(
+      //       hour: 20,
+      //       minute: 0,
+      //       second: 0,
+      //       millisecond: 0,
+      //       repeats: true,
+      //     ),
+      //   );
+      //   print("Stopped");
+      // }
     });
     // The dialog to get the user's name
     // showAdaptiveDialog(
@@ -265,7 +264,8 @@ class _HomeState extends State<Home> {
                   onTap: () {
                     setState(() {
                       providerModel.scheduleConstantNotification();
-                      print("Done");
+                      //providerModel.scheduleNotification(TaskClass(taskName: "taskName", taskState: true, taskCategory: "taskCategory", taskTime: DateTime.now(), id: "id", catColor: 1), DateTime.now());
+                      print("Weldone ${providerModel.userName}");
                     });
                   },
                   child: Padding(
@@ -352,6 +352,7 @@ class _HomeState extends State<Home> {
           title: Row(
             children: [
               Text(
+                providerModel.userInfo.get("userName") == Null ? "Welcome Boss":
                 "Welcome ${providerModel.userInfo.get("userName").toString()} ",
                 style: TextStyle(
                   fontWeight: FontWeight.normal,

@@ -46,89 +46,82 @@ class _HistoryPageState extends State<HistoryPage> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           endDrawer: SafeArea(
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
 
-            height: 500,
-            width: 250,
-            child: Column(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
-                    });
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      height: 40,
-                      width: 250,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.home, size: 16),
-                            SizedBox(width: 8),
-                            Text("Home Page"),
-                          ],
+              height: 500,
+              width: 250,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                        
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).textTheme.bodyLarge!.color!.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        height: 40,
+                        width: 250,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Icon(Icons.home, size: 16),
+                              SizedBox(width: 8),
+                              Text("Home Page"),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
 
-
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      providerModel.historyBox.clear();
-                    });
-                    Navigator.pop(context);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      height: 40,
-                      width: 250,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.delete_forever, size: 16),
-                            SizedBox(width: 8),
-                            Text("Clear History"),
-                          ],
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        providerModel.historyBox.clear();
+                      });
+                      Navigator.pop(context);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).textTheme.bodyLarge!.color!.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        height: 40,
+                        width: 250,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Icon(Icons.delete_forever, size: 16),
+                              SizedBox(width: 8),
+                              Text("Clear History"),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-
                 ],
+              ),
             ),
           ),
-        ),
-        
+
           // endDrawer: Container(
           //   decoration: BoxDecoration(
           //     borderRadius: BorderRadius.circular(12),
@@ -190,7 +183,6 @@ class _HistoryPageState extends State<HistoryPage> {
           //     ],
           //   ),
           // ),
-
           appBar: AppBar(
             title: Row(children: [Text("Task History")]),
             bottom: TabBar(

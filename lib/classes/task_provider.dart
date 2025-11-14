@@ -41,7 +41,6 @@ class TaskProvider extends ChangeNotifier {
     }
   }
 
-
   //Color of the app color
   Color appColor = const Color(0xFF2048ff);
 
@@ -224,7 +223,32 @@ class TaskProvider extends ChangeNotifier {
     final now = DateTime.now();
     final day = now.weekday;
     final random = Random();
-    List<List<String>> messages = [];
+    List<List<String>> messages = [
+       [
+          "most there $userName 🫡🫡",
+          "Plan now so we can celebrate the win on weekend",
+        ],
+    ];
+    // List<List<String>> messages = [[
+    //       "It's the weekenddd !!!!🥳🥳",
+    //       "Rest and reflect on your week boss 🫡🫡",
+    //     ],
+    //     [
+    //       "It's finally Friday 🥳🥳 ",
+    //       "You deserve the rest you are about to have $userName",
+    //     ],
+    //     [
+    //       "Relax boss, you've earned it 🫡🫡",
+    //       "Let's utilize the weekend to refill",
+    //     ],
+    //     [
+    //       "Congratulations, it's the weekend 😄😄",
+    //       "You deserve the rest you are about to have $userName",
+    //     ],
+    //     [
+    //       "It's finally Friday 🥳🥳",
+    //       "You deserve the rest you are about to have $userName",
+    //     ],];
     // For friday evening
     if (day == 5) {
       List<List> messages = [
@@ -392,7 +416,16 @@ class TaskProvider extends ChangeNotifier {
           "Map out tomorrow and thank yourself on Friday evening",
         ],
       ];
+    } else{
+      List<List<String>> messages = [
+        [
+          "Almost there $userName 🫡🫡",
+          "Plan now so we can celebrate the win on weekend",
+        ],
+        
+      ];
     }
+    
     return messages[random.nextInt(messages.length)];
   }
 
@@ -418,30 +451,29 @@ class TaskProvider extends ChangeNotifier {
           actionType: ActionType.DisabledAction,
         ),
       ],
-      schedule: NotificationCalendar(
-        year: taskTime.year,
-        month: taskTime.month,
-        day: taskTime.day,
-        hour: taskTime.hour,
-        minute: taskTime.minute,
-        second: 0,
-        millisecond: 0,
-        repeats: false,
-      ),
+      // schedule: NotificationCalendar(
+      //   year: taskTime.year,
+      //   month: taskTime.month,
+      //   day: taskTime.day,
+      //   hour: taskTime.hour,
+      //   minute: taskTime.minute,
+      //   second: 0,
+      //   millisecond: 0,
+      //   repeats: false,
+      // ),
     );
     notifyListeners();
   }
 
-  Future<void> scheduleConstantNotification(
-   
-  ) async {
+  Future<void> scheduleConstantNotification() async {
+    final notiMessage = specificMessage();
     final now = DateTime.now();
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: now.millisecondsSinceEpoch.remainder(100000),
         channelKey: "task_channel",
-        title: "specificMessage()[0]",
-        body: "specificMessage()[1]",
+        title: notiMessage[0],
+        body: notiMessage[1],
       ),
 
       // schedule: NotificationCalendar(
@@ -470,7 +502,7 @@ class TaskProvider extends ChangeNotifier {
 
   ThemeMode get themeMode =>
       userInfo.get("appTheme") == "Dark" ? ThemeMode.dark : ThemeMode.light;
-    String get appTheme => userInfo.get("appTheme");
+  String get appTheme => userInfo.get("appTheme");
   void themeOnpressed(String theme, BuildContext context) {
     userInfo.put("appTheme", theme);
     if (theme == "Dark") {
@@ -481,7 +513,6 @@ class TaskProvider extends ChangeNotifier {
       themeIcon = Icon(Icons.light_mode, size: 16);
     }
   }
-
 
   //Function to edit task
   void edit(String id, TaskClass inputNewTask, BuildContext context) {
