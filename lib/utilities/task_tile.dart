@@ -55,7 +55,8 @@ class TaskTile extends StatelessWidget {
                     ),
                   ),
                   
-                  Expanded(
+                  SizedBox(
+                    width: 150,
                     child: Tooltip(
                       message: taskName,
                       child: Text(

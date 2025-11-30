@@ -15,6 +15,8 @@ class _ThemeDialogState extends State<ThemeDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      titlePadding: EdgeInsets.all(12),
+      contentPadding: EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20)
       ),
@@ -27,7 +29,7 @@ class _ThemeDialogState extends State<ThemeDialog> {
       content: SizedBox(
         height: 90,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
               children: [
@@ -41,7 +43,7 @@ class _ThemeDialogState extends State<ThemeDialog> {
                   onPressed: () {
                     context.read<TaskProvider>().themeOnpressed(
                       "Light",
-                      context,
+                     
                     );
                   },
                   themeIcon: Icon(Icons.light_mode, color: Theme.of(context).textTheme.bodyLarge!.color!),
@@ -57,7 +59,7 @@ class _ThemeDialogState extends State<ThemeDialog> {
                 ),),
               ],
             ),
-            SizedBox(width: 8),
+            SizedBox(width: 32),
             Column(
               children: [
                 ThemeButton(
@@ -69,7 +71,7 @@ class _ThemeDialogState extends State<ThemeDialog> {
                   onPressed: () {
                     context.read<TaskProvider>().themeOnpressed(
                       "Dark",
-                      context,
+                      
                     );
                   },
                   themeIcon: Icon(Icons.dark_mode, color: Theme.of(context).textTheme.bodyLarge!.color!,),

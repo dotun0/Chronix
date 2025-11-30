@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ThemeButton extends StatelessWidget {
+class NotificationButton extends StatelessWidget {
   Color colors;
   Function()? onPressed;
-  Icon themeIcon;
+  String notiTime;
   Color borderColor;
  
-  ThemeButton({
+  NotificationButton({
     super.key,
     required this.colors,
     required this.onPressed,
-    required this.themeIcon,
+    required this.notiTime,
     required this.borderColor,
     
   });
@@ -18,9 +18,10 @@ class ThemeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60,
-      width: 60,
+      height: 50,
+      width: 50,
       child: MaterialButton(
+        padding: EdgeInsets.all(5),
         color: colors,
         
         onPressed: onPressed,
@@ -28,7 +29,8 @@ class ThemeButton extends StatelessWidget {
           side: BorderSide(width: 1, color: borderColor),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Center(child: themeIcon
+        child: Center(child: Text(notiTime, style: TextStyle(fontSize: 13
+        ),)
         
         ),
       ),

@@ -17,6 +17,12 @@ class TaskProvider extends ChangeNotifier {
   //Box get userinfo => userInfo;
   TextEditingController userInputName = TextEditingController();
   String get userName => userInfo.get("userName");
+  //  int get notificationTime => userInfo.get("notificationTime");
+  int get constantTime => userInfo.get("notificationTime");
+  // notificationTime == Null
+  //     ? 8
+  //     : userInfo.get("notificationTime");
+
   void updateName(TextEditingController name, BuildContext context) {
     if (name.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -223,210 +229,190 @@ class TaskProvider extends ChangeNotifier {
     final now = DateTime.now();
     final day = now.weekday;
     final random = Random();
-    List<List<String>> messages = [
-       [
-          "most there $userName 🫡🫡",
-          "Plan now so we can celebrate the win on weekend",
-        ],
-    ];
-    // List<List<String>> messages = [[
-    //       "It's the weekenddd !!!!🥳🥳",
-    //       "Rest and reflect on your week boss 🫡🫡",
-    //     ],
-    //     [
-    //       "It's finally Friday 🥳🥳 ",
-    //       "You deserve the rest you are about to have $userName",
-    //     ],
-    //     [
-    //       "Relax boss, you've earned it 🫡🫡",
-    //       "Let's utilize the weekend to refill",
-    //     ],
-    //     [
-    //       "Congratulations, it's the weekend 😄😄",
-    //       "You deserve the rest you are about to have $userName",
-    //     ],
-    //     [
-    //       "It's finally Friday 🥳🥳",
-    //       "You deserve the rest you are about to have $userName",
-    //     ],];
-    // For friday evening
-    if (day == 5) {
-      List<List> messages = [
-        [
-          "It's the weekenddd !!!!🥳🥳",
-          "Rest and reflect on your week boss 🫡🫡",
-        ],
-        [
-          "It's finally Friday 🥳🥳 ",
-          "You deserve the rest you are about to have $userName",
-        ],
-        [
-          "Relax boss, you've earned it 🫡🫡",
-          "Let's utilize the weekend to refill",
-        ],
-        [
-          "Congratulations, it's the weekend 😄😄",
-          "You deserve the rest you are about to have $userName",
-        ],
-        [
-          "It's finally Friday 🥳🥳",
-          "You deserve the rest you are about to have $userName",
-        ],
-      ];
-    }
-    //For Saturday evening
-    else if (day == 6) {
-      // ignore: unused_local_vari.able
-      List<List<String>> messages = [
-        [
-          "$userName, you earned the rest ohh",
-          "Come on, let's start creating momentum for the week ahead",
-        ],
-        [
-          "Hope you enjoyed today $userName",
-          "You don't really need to plan today, just breathe and reflect",
-        ],
-        [
-          "Good evening Boss 🫡🫡🫡",
-          "Hope you rested well, Monday is knocking",
-        ],
-        [
-          "It's mid weekend, hope you rested well",
-          "Monday is around the corner, let's reflect and celebrate small wins",
-        ],
-        [
-          "Hey $userName tonight is your quiet victory",
-          "Reflect, rest and realign your energy",
-        ],
-      ];
-    }
-    //For Sunday evening
-    else if (day == 7) {
-      List<List<String>> messages = [
-        [
-          "The weekend is over 🥲😞"
-              "Come on $userName, let's plan your Monday and own the week.",
-        ],
-        [
-          "Just like that, it's already Monday😞😞",
-          "Take a few minutes to plan your Monday",
-        ],
-        [
-          "Hey $userName ready for Monday??",
-          "Monday is tomorrow, let's plan to enter it well prepared",
-        ],
-        [
-          "Hope you enjoyed your weekend $userName??",
-          "Let's set the tone for the week, take a few mins to plan for Monday",
-        ],
-        [
-          "Knock Knock !!!, it's Mondayyy",
-          "Let's make a quick plan for tomorrow Boss",
-        ],
-      ];
-    }
-    //For Monday evening
-    else if (day == 1) {
-      List<List<String>> messages = [
-        [
-          "Hope today wasn't too stressful ??",
-          "Let's make Tuesday better, plan it 🫡🫡",
-        ],
-        [
-          "Today was a trailer $userName 😉😉",
-          "Write tomorrow's script today, let's go",
-        ],
-        [
-          "Monday doesn't control the week",
-          "Let's take a moment to make the week even better ",
-        ],
-        [
-          "Hope you enjoyed today $userName",
-          "Onto the next, we go again tomorrow",
-        ],
-        [
-          "The week just began, how is it going ??",
-          "Take a breath, review today and let's make tomorrow better",
-        ],
-      ];
-    }
-    //For Tuesday evening
-    else if (day == 2) {
-      List<List<String>> messages = [
-        [
-          "Hey $userName, Tuesday is done already!! 🥳🥳",
-          "Let's take a second to map out tomorrow",
-        ],
-        [
-          "We are now in the week Boss 🫡🫡",
-          "Let's set the pace for the rest of the week",
-        ],
-        [
-          "You're doing great $userName",
-          "Let's prepare tomorrow and finish the week strong",
-        ],
-        ["Keep pushing Boss 🥳🥳", "Plan now for a smoother Wednesday"],
-        [
-          "It was only Tuesday ??",
-          "Let's make tomorrow even better, plan it out",
-        ],
-      ];
-    }
-    //For Wednesday evening
-    else if (day == 3) {
-      List<List<String>> messages = [
-        ["It's mid-week $userName", "Let's make this week really count 🫡🫡"],
-        [
-          "Hey $userName, you made it halfway!! 🥳🥳",
-          "Let's take a second to map out the second half",
-        ],
 
-        [
-          "It's Thursday already $userName",
-          "It's time to filter out what didn't work and double down on what did",
-        ],
-        [
-          "Happy Hump Day Boss 🫡🫡",
-          "Let's plan for a strong finish to the week",
-        ],
-        [
-          "You're not tired, you are just getting started",
-          "Let's prepare tomorrow and finish the week strong",
-        ],
-      ];
-    }
+    //For Friday evening
+
+    List<List> fridayMessages = [
+      [
+        "It's the weekenddd !!!!🥳🥳",
+        "Rest and reflect on your week boss 🫡🫡",
+      ],
+      [
+        "It's finally Friday 🥳🥳 ",
+        "You deserve the rest you are about to have $userName",
+      ],
+      [
+        "Relax boss, you've earned it 🫡🫡",
+        "Let's utilize the weekend to refill",
+      ],
+      [
+        "Congratulations, it's the weekend 😄😄",
+        "You deserve the rest you are about to have $userName",
+      ],
+      [
+        "It's finally Friday 🥳🥳",
+        "You deserve the rest you are about to have $userName",
+      ],
+    ];
+
+    //For Saturday evening
+
+    List<List<String>> saturdayMessages = [
+      [
+        "$userName, you earned the rest ohh",
+        "Come on, let's start creating momentum for the week ahead",
+      ],
+      [
+        "Hope you enjoyed today $userName",
+        "You don't really need to plan today, just breathe and reflect",
+      ],
+      ["Good evening Boss 🫡🫡🫡", "Hope you rested well, Monday is knocking"],
+      [
+        "It's mid weekend, hope you rested well",
+        "Monday is around the corner, let's reflect and celebrate small wins",
+      ],
+      [
+        "Hey $userName, tonight is your quiet victory",
+        "Reflect, rest and realign your energy",
+      ],
+    ];
+
+    //For Sunday evening
+
+    List<List<String>> sundayMessages = [
+      [
+        "The weekend is over 🥲😞"
+            "Come on $userName, let's plan your Monday and own the week.",
+      ],
+      [
+        "Just like that, it's already Monday😞😞",
+        "Take a few minutes to plan your Monday",
+      ],
+      [
+        "Hey $userName ready for Monday??",
+        "Monday is tomorrow, let's plan to enter it well prepared",
+      ],
+      [
+        "Hope you enjoyed your weekend $userName??",
+        "Let's set the tone for the week, take a few mins to plan for Monday",
+      ],
+      [
+        "Knock Knock !!!, it's Mondayyy",
+        "Let's make a quick plan for tomorrow Boss",
+      ],
+    ];
+
+    //For Monday evening
+
+    List<List<String>> mondayMessages = [
+      [
+        "Hope today wasn't too stressful ??",
+        "Let's make Tuesday better, plan it 🫡🫡",
+      ],
+      [
+        "Today was a trailer $userName 😉😉",
+        "Write tomorrow's script today, let's go",
+      ],
+      [
+        "Monday doesn't control the week",
+        "Let's take a moment to make the week even better ",
+      ],
+      [
+        "Hope you enjoyed today $userName",
+        "Onto the next, we go again tomorrow",
+      ],
+      [
+        "The week just began, how is it going ??",
+        "Take a breath, review today and let's make tomorrow better",
+      ],
+    ];
+
+    //For Tuesday evening
+
+    List<List<String>> tuesdayMessages = [
+      [
+        "Hey $userName, Tuesday is done already!! 🥳🥳",
+        "Let's take a second to map out tomorrow",
+      ],
+      [
+        "We are now in the week Boss 🫡🫡",
+        "Let's set the pace for the rest of the week",
+      ],
+      [
+        "You're doing great $userName",
+        "Let's prepare tomorrow and finish the week strong",
+      ],
+      ["Keep pushing Boss 🥳🥳", "Plan now for a smoother Wednesday"],
+      [
+        "It was only Tuesday ??",
+        "Let's make tomorrow even better, plan it out",
+      ],
+    ];
+
+    //For Wednesday evening
+
+    List<List<String>> wednesdayMessages = [
+      ["It's mid-week $userName", "Let's make this week really count 🫡🫡"],
+      [
+        "Hey $userName, you made it halfway!! 🥳🥳",
+        "Let's take a second to map out the second half",
+      ],
+
+      [
+        "It's Thursday already $userName",
+        "It's time to filter out what didn't work and double down on what did",
+      ],
+      [
+        "Happy Hump Day Boss 🫡🫡",
+        "Let's plan for a strong finish to the week",
+      ],
+      [
+        "You're not tired, you are just getting started",
+        "Let's prepare tomorrow and finish the week strong",
+      ],
+    ];
+
     //For Thursday evening
-    else if (day == 4) {
-      List<List<String>> messages = [
-        [
-          "Almost there $userName 🫡🫡",
-          "Plan now so we can celebrate the win on weekend",
-        ],
-        [
-          "Finish line in sight Boss 🥳🥳",
-          "Your best finish begins with a clear plan for Friday",
-        ],
-        ["It's Friday Eve!! 🥳🥳", "Let's make tomorrow count, plan it out"],
-        [
-          "Hey $userName, it's almost the weekend!! 🥳🥳",
-          "One short plan tonight = a smooth finish tomorrow",
-        ],
-        [
-          "The Friday's gift",
-          "Map out tomorrow and thank yourself on Friday evening",
-        ],
-      ];
-    } else{
-      List<List<String>> messages = [
-        [
-          "Almost there $userName 🫡🫡",
-          "Plan now so we can celebrate the win on weekend",
-        ],
-        
-      ];
+
+    List<List<String>> thursdayMessages = [
+      [
+        "Almost there $userName 🫡🫡",
+        "Plan now so we can celebrate the win on weekend",
+      ],
+      [
+        "Finish line in sight Boss 🥳🥳",
+        "Your best finish begins with a clear plan for Friday",
+      ],
+      ["It's Friday Eve!! 🥳🥳", "Let's make tomorrow count, plan it out"],
+      [
+        "Hey $userName, it's almost the weekend!! 🥳🥳",
+        "One short plan tonight = a smooth finish tomorrow",
+      ],
+      [
+        "The Friday's gift",
+        "Map out tomorrow and thank yourself on Friday evening",
+      ],
+    ];
+
+    if (day == 5) {
+      return fridayMessages[random.nextInt(fridayMessages.length)];
+    } else if (day == 6) {
+      return saturdayMessages[random.nextInt(saturdayMessages.length)];
+    } else if (day == 7) {
+      return sundayMessages[random.nextInt(sundayMessages.length)];
+    } else if (day == 1) {
+      return mondayMessages[random.nextInt(mondayMessages.length)];
+    } else if (day == 2) {
+      return tuesdayMessages[random.nextInt(tuesdayMessages.length)];
+    } else if (day == 3) {
+      return wednesdayMessages[random.nextInt(wednesdayMessages.length)];
+    } else if (day == 4) {
+      return thursdayMessages[random.nextInt(thursdayMessages.length)];
+    } else if (day == 5) {
+      return fridayMessages[random.nextInt(fridayMessages.length)];
+    } else {
+      return fridayMessages[random.nextInt(fridayMessages.length)];
     }
-    
-    return messages[random.nextInt(messages.length)];
   }
 
   //Notification Function for the exact scheduled time
@@ -451,40 +437,49 @@ class TaskProvider extends ChangeNotifier {
           actionType: ActionType.DisabledAction,
         ),
       ],
-      // schedule: NotificationCalendar(
-      //   year: taskTime.year,
-      //   month: taskTime.month,
-      //   day: taskTime.day,
-      //   hour: taskTime.hour,
-      //   minute: taskTime.minute,
-      //   second: 0,
-      //   millisecond: 0,
-      //   repeats: false,
-      // ),
+      schedule: NotificationCalendar(
+        year: taskTime.year,
+        month: taskTime.month,
+        day: taskTime.hour < now.hour || taskTime.minute < now.minute
+            ? taskTime.day + 1
+            : taskTime.day,
+        hour: taskTime.hour,
+        minute: taskTime.minute,
+        second: 0,
+        millisecond: 0,
+        repeats: false,
+      ),
     );
     notifyListeners();
   }
 
+
+  final notificationID = 101010010;
   Future<void> scheduleConstantNotification() async {
     final notiMessage = specificMessage();
     final now = DateTime.now();
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
-        id: now.millisecondsSinceEpoch.remainder(100000),
+        id: notificationID,
         channelKey: "task_channel",
         title: notiMessage[0],
         body: notiMessage[1],
       ),
 
-      // schedule: NotificationCalendar(
-      //   hour: 20,
-      //   minute: 0,
-      //   second: 0,
-      //   millisecond: 0,
-      //   repeats: true,
-      // ),
+      schedule: NotificationCalendar(
+        hour: constantTime == Null ? 21 : constantTime,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+        repeats: true,
+      ),
     );
     notifyListeners();
+  }
+
+  // Setting the constant notification time
+  void setConstantTime(int time, BuildContext context) {
+    userInfo.put("notificationTime", time);
   }
 
   //Icon for the theme indicator
@@ -503,7 +498,7 @@ class TaskProvider extends ChangeNotifier {
   ThemeMode get themeMode =>
       userInfo.get("appTheme") == "Dark" ? ThemeMode.dark : ThemeMode.light;
   String get appTheme => userInfo.get("appTheme");
-  void themeOnpressed(String theme, BuildContext context) {
+  void themeOnpressed(String theme) {
     userInfo.put("appTheme", theme);
     if (theme == "Dark") {
       themeData = darkMode;

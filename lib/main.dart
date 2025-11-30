@@ -31,6 +31,13 @@ void main() async {
 
   await Hive.openBox<TaskClass>("box");
   await Hive.openBox("userInfo");
+  if (Hive.box("userInfo").isEmpty) {
+    Hive.box("userInfo").put("userName", "Boss");
+    Hive.box("userInfo").put("notificationTime", 20);
+    Hive.box("userInfo").put("appTheme", "Dark");
+    
+    
+  }
   await Hive.openBox<TaskClass>("historyTaskBox");
   // await SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitDown,

@@ -10,6 +10,8 @@ import 'package:taskmate/pages/history_page.dart';
 import 'package:taskmate/pages/task_input.dart';
 import 'package:taskmate/utilities/alert_dialog.dart';
 import 'package:taskmate/utilities/button.dart';
+import 'package:taskmate/utilities/drawer_tiles.dart';
+import 'package:taskmate/utilities/notification_dialog.dart';
 import 'package:taskmate/utilities/task_tile.dart';
 import 'package:taskmate/utilities/theme_dialog.dart';
 
@@ -137,160 +139,59 @@ class _HomeState extends State<Home> {
             width: 250,
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(
-                        context,
-                      ).textTheme.bodyLarge!.color!.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    height: 40,
-                    width: 250,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Icon(Icons.home, size: 16),
-                          SizedBox(width: 8),
-                          Text("Home"),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                GestureDetector(
-                  onTap: () {
+                DrawerTiles(
+                  action: () {
                     Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HistoryPage()),
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      height: 40,
-                      width: 250,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.history, size: 16),
-                            SizedBox(width: 8),
-                            Text("Task History"),
-                          ],
-                        ),
-                      ),
-                    ),
+                  icon: Icons.history,
+                  label: "Task History",
+                ),
+
+                DrawerTiles(
+                  icon: context.watch<TaskProvider>().themeIcon.icon!,
+                  label: "Theme",
+                  action: () => showAdaptiveDialog(
+                    context: context,
+                    builder: (context) {
+                      return ThemeDialog();
+                    },
                   ),
                 ),
 
-                GestureDetector(
-                  onTap: () {
+                DrawerTiles(
+                  action: (){
+                    showAdaptiveDialog(
+                    context: context,
+                    builder: (context) {
+                      
+                      return CustomAlertDialog();
+                      
+                    },
+                  );
+                  
+                  },
+                  
+                  icon: Icons.person,
+                  label: "Edit Name",
+                ),
+
+                DrawerTiles(
+                  action: () {
+                   
+                   // providerModel.scheduleConstantNotification();
                     showAdaptiveDialog(
                       context: context,
                       builder: (context) {
-                        return ThemeDialog();
+                        return NotificationDialog();
                       },
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      height: 40,
-                      width: 250,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            providerModel.themeIcon,
-                            SizedBox(width: 8),
-                            Text("Theme"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    showAdaptiveDialog(
-                      context: context,
-                      builder: (context) {
-                        return CustomAlertDialog();
-                      },
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      height: 40,
-                      width: 250,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.person, size: 16),
-                            SizedBox(width: 8),
-                            Text("Edit Name"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      providerModel.scheduleConstantNotification();
-                      //providerModel.scheduleNotification(TaskClass(taskName: "taskName", taskState: true, taskCategory: "taskCategory", taskTime: DateTime.now(), id: "id", catColor: 1), DateTime.now());
-                      print("Weldone ${providerModel.userName}");
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge!.color!.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      height: 40,
-                      width: 250,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.notifications, size: 16),
-                            SizedBox(width: 8),
-                            Text("Notification"),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  icon: Icons.notifications,
+                  label: "Notification",
                 ),
               ],
             ),
@@ -352,8 +253,7 @@ class _HomeState extends State<Home> {
           title: Row(
             children: [
               Text(
-                providerModel.userInfo.get("userName") == Null ? "Welcome Boss":
-                "Welcome ${providerModel.userInfo.get("userName").toString()} ",
+               "Welcome ${providerModel.userInfo.get("userName")} ",
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   color: Theme.of(context).textTheme.bodyLarge!.color!,
@@ -366,7 +266,7 @@ class _HomeState extends State<Home> {
                 height: 22,
                 width: 22,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(4),
                   color: providerModel.appColor,
                 ),
                 child: Center(
